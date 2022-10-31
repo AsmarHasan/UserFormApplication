@@ -1,0 +1,65 @@
+﻿@model FormViewModel
+
+@{
+    ViewData["Title"] = "User Form";
+}
+
+<!-- saved from url=(0094)file:///C:/Users/oliver.stimmer/AppData/Roaming/Skype/My%20Skype%20Received%20Files/index.html -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+        .validation-message-container {
+            height: 20px;
+            font-size: 13px;
+        }
+
+        input[type=submit] {
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    Please enter your name and pick the Sectors you are currently involved in.
+    <br>
+    <br>
+
+    <form asp-controller="Home" asp-action="Index">
+        <div>
+            Name: <input asp-for="Name">
+            <div class=validation-message-container>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div>
+            <div style="display: flex; align-items: start;">
+
+                Selector:&nbsp;
+                <select multiple="" size="10" asp-for="SelectedSectors" id="Selector">
+                    @foreach (var sector in Model.Sectors)
+                    {
+                        ViewData["margin"] = 0;
+                        <partial selected="selected" name="OptionPartial" model=sector view-data="ViewData" />
+                    }
+                </select>
+
+            </div>
+            <div class=validation-message-container>
+                <span asp-validation-for="SelectedSectors" class="text-danger"></span>
+            </div>
+        </div>
+        <div>
+            Agreed to terms:
+            <input name="AgreedToTerms" type="checkbox" value="true" @(Model.AgreedToTerms?"checked='checked'":"") />
+            <div class=validation-message-container>
+                <span asp-validation-for="AgreedToTerms" class="text-danger"></span>
+            </div>
+        </div>
+        <input type="submit" />
+    </form>
+</body>
+</html>
+

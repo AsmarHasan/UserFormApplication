@@ -1,0 +1,18 @@
+﻿@using TestApplication.Core.Models
+@model SectorModel
+
+
+@{
+    int maringValue = (int)@ViewData["margin"];
+}
+
+<option style="margin-left: @(maringValue)px" value="@Model.Code" selected="@Model.Selected">@Model.Name</option>
+
+@if (Model.SubSectors.Count > 0)
+{
+    @foreach (var sector in Model.SubSectors)
+    {
+         ViewData["margin"] = maringValue + 15;
+        <partial name="OptionPartial" model=sector view-data="ViewData" />
+    }
+}
